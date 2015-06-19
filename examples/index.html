@@ -1,0 +1,47 @@
+<html>
+<head>
+  <title>v-resize example</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/Handle.css">
+  <link rel="stylesheet" href="css/Main.css">
+  <link rel="stylesheet" href="css/Content.css">
+</head>
+<body>
+  <div id="app">
+    <div class="Main" style="height: 100px; width: 200px; margin: 0 auto;" v-resize="resizeB">
+      <div class="Content">
+        <h2 style="text-align: center;">Resize Me!</h2>
+      </div>
+    </div>
+    <div class="Content">
+      <div class="Main" v-resize="resizeC">
+        <div style="display: table-row;" >
+          <div class="Content" style="display: table-cell;" v-resize="resizeA">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem fugit ratione voluptates, possimus tenetur beatae nisi ipsum dolores perferendis saepe quaerat ex quis harum aliquam ut dolorem eligendi veniam dolorum!</p>
+          </div>
+          <div class="Content" style="display: table-cell;" v-resize="resizeA">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem fugit ratione voluptates, possimus tenetur beatae nisi ipsum dolores perferendis saepe quaerat ex quis harum aliquam ut dolorem eligendi veniam dolorum!</p>
+          </div>
+        </div>
+      </div>
+      <div class="Main">
+        <div style="display: table-row;" >
+          <div class="Content" style="display: table-cell;">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem fugit ratione voluptates, possimus tenetur beatae nisi ipsum dolores perferendis saepe quaerat ex quis harum aliquam ut dolorem eligendi veniam dolorum!</p>
+          </div>
+          <div class="Content" style="display: table-cell;" v-resize="resizeB">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem fugit ratione voluptates, possimus tenetur beatae nisi ipsum dolores perferendis saepe quaerat ex quis harum aliquam ut dolorem eligendi veniam dolorum!</p>
+          </div>
+          <div class="Content" style="display: table-cell;">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem fugit ratione voluptates, possimus tenetur beatae nisi ipsum dolores perferendis saepe quaerat ex quis harum aliquam ut dolorem eligendi veniam dolorum!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../node_modules/vue-panel/index.js"></script>
+  <script src="../index.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

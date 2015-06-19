@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>v-resize example</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/Handle.css">
+  <link rel="stylesheet" href="css/Main.css">
+  <link rel="stylesheet" href="css/Content.css">
+</head>
+<body>
+  <div id="app">
+    <v-panel direction="column" grow="1">
+      <v-panel v-resize="resizeC" class="Main Content" direction="row" grow="1">
+        <v-panel class="Content" grow="1">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat cum magnam iusto id fugit maiores nam, voluptates possimus nesciunt ex omnis, fugiat est ipsam accusamus earum distinctio consequuntur ratione maxime!</p>
+        </v-panel>
+        <v-panel v-resize="resizeA" class="Content" grow="1">
+          <v-panel-content>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores possimus optio dolorem deserunt totam molestiae earum mollitia nam, minima quisquam sequi delectus vero accusamus aliquid blanditiis saepe quibusdam, architecto laborum.</p>
+            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure id ex repellendus aspernatur eligendi laboriosam obcaecati animi inventore debitis qui quaerat minima, in praesentium possimus unde a accusantium tenetur saepe?</p>
+          </v-panel-content>
+        </v-panel>
+      </v-panel>
+      <v-panel class="Main Content" direction="row" grow="1">
+        <v-panel grow="1"></v-panel>
+        <v-panel v-resize="resizeB" class="Content" grow="0" basis="auto">
+          <v-panel-content>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores possimus optio dolorem deserunt totam molestiae earum mollitia nam, minima quisquam sequi delectus vero accusamus aliquid blanditiis saepe quibusdam, architecto laborum.</p>
+            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure id ex repellendus aspernatur eligendi laboriosam obcaecati animi inventore debitis qui quaerat minima, in praesentium possimus unde a accusantium tenetur saepe?</p>
+          </v-panel-content>
+        </v-panel>
+        <v-panel grow="1"></v-panel>
+      </v-panel>
+    </v-panel>
+  </div>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../node_modules/vue-panel/index.js"></script>
+  <script src="../index.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

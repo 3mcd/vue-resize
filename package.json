@@ -1,0 +1,17 @@
+{
+  "name": "vue-resize",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-libs-browser": "^0.5.2",
+    "vue": "^0.12.1",
+    "vue-panel": "^1.0.2",
+    "webpack": "^1.9.11"
+  }
+}
