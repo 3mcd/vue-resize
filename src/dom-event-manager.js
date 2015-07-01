@@ -13,13 +13,21 @@ DOMEventHandler.prototype = {
   }
 };
 
-function DOMEventManager() {
+function DOMEventManager(el) {
   this.handlers = [];
+  this.el = el;
 }
 
 DOMEventManager.prototype = {
   add: function (spec) {
-    var handler = new DOMEventHandler(spec);
+    var handler;
+    if (!spec.el && this.el) {
+      spec.el = this.el;
+    }
+    if (!spec.el) {
+      throw new Error('DOM event must have a reference to a valid window or element.');
+    }
+    handler = new DOMEventHandler(spec);
     this.handlers.push(handler);
     handler.bind();
   },

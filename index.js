@@ -106,10 +106,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  onMousemove: function (e) {
-	    var v1, v2, x, y, diff, rect, handler;
+	    var v1, v2, x, y, diff, rect, afterRect, handler, undo;
 
 	    rect = getRect(this.$target);
-	    
+
 	    x = this.type === 'left' ? rect.left : this.type === 'right' ? rect.right : e.clientX;
 	    y = this.type === 'top' ? rect.top : this.type === 'bottom' ? rect.bottom : e.clientY;
 
@@ -119,6 +119,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    diff = this.type === 'left' || this.type === 'top' ? v1.diff(v2) : v2.diff(v1);
 
 	    this.resize(diff);
+
+	    afterRect = getRect(this.$target);
 
 	    Handle.updateAll();
 	  },
@@ -131,39 +133,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	  update: function () {
 	    var _this = this;
 
-	    setTimeout(function () {
-	      var rect = getRect(_this.$target);
-	      var handleWidth = 16;
+	    var rect = getRect(_this.$target);
+	    var handleWidth = 16;
 
-	      if (_this.type === 'top' || _this.type === 'bottom') {
-	        _this.$el.style.width = rect.width + 'px';
-	        _this.$el.style.height = handleWidth + 'px';
-	      }
+	    if (_this.type === 'top' || _this.type === 'bottom') {
+	      _this.$el.style.width = rect.width + 'px';
+	      _this.$el.style.height = handleWidth + 'px';
+	    }
 
-	      if (_this.type === 'left' || _this.type === 'right') {
-	        _this.$el.style.height = rect.height + 'px';
-	        _this.$el.style.width = handleWidth + 'px';
-	      }
+	    if (_this.type === 'left' || _this.type === 'right') {
+	      _this.$el.style.height = rect.height + 'px';
+	      _this.$el.style.width = handleWidth + 'px';
+	    }
 
-	      switch (_this.type) {
-	        case 'bottom':
-	          _this.$el.style.left = rect.left + 'px';
-	          _this.$el.style.top = rect.bottom - (handleWidth / 2) + 'px';
-	          break;
-	        case 'top':
-	          _this.$el.style.left = rect.left + 'px';
-	          _this.$el.style.top = rect.top - (handleWidth / 2) + 'px';
-	          break;
-	        case 'right':
-	          _this.$el.style.top = rect.top + 'px';
-	          _this.$el.style.left = rect.right - (handleWidth / 2) + 'px';
-	          break;
-	        case 'left':
-	          _this.$el.style.top = rect.top + 'px';
-	          _this.$el.style.left = rect.left - (handleWidth / 2) + 'px';
-	          break;
-	      }
-	    }, 0);
+	    switch (_this.type) {
+	      case 'bottom':
+	        _this.$el.style.left = rect.left + 'px';
+	        _this.$el.style.top = rect.bottom - (handleWidth / 2) + 'px';
+	        break;
+	      case 'top':
+	        _this.$el.style.left = rect.left + 'px';
+	        _this.$el.style.top = rect.top - (handleWidth / 2) + 'px';
+	        break;
+	      case 'right':
+	        _this.$el.style.top = rect.top + 'px';
+	        _this.$el.style.left = rect.right - (handleWidth / 2) + 'px';
+	        break;
+	      case 'left':
+	        _this.$el.style.top = rect.top + 'px';
+	        _this.$el.style.left = rect.left - (handleWidth / 2) + 'px';
+	        break;
+	    }
 	  },
 
 	  appendTo: function ($el) {
@@ -182,7 +182,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var $siblings = this.$target.parentElement.children;
 
 	    var captures = [];
-
+	    
 	    for (var i = 0; i < $siblings.length; i++) {
 	      captures.push($siblings[i].style.flexGrow);
 	      $siblings[i].style.flexGrow = 0;
@@ -192,11 +192,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    if (vec2.x) {
 	      this.$target.style.width = rect.width + vec2.x + 'px';
-	      this.$target.style.flexBasis = rect.width + vec2.x + 'px';
+	      if (this.$target.parentElement.style.flexDirection === 'row') {
+	        this.$target.style.flexBasis = rect.width + vec2.x + 'px';
+	      }
 	    }
 	    if (vec2.y) {
 	      this.$target.style.height = rect.height + vec2.y + 'px';
-	      this.$target.style.flexBasis = rect.height + vec2.y + 'px';
+	      if (this.$target.parentElement.style.flexDirection === 'column') {
+	        this.$target.style.flexBasis = rect.height + vec2.y + 'px';
+	      }
 	    }
 
 	    for (var j = 0; j < $siblings.length; j++) {
@@ -294,13 +298,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 
-	function DOMEventManager() {
+	function DOMEventManager(el) {
 	  this.handlers = [];
+	  this.el = el;
 	}
 
 	DOMEventManager.prototype = {
 	  add: function (spec) {
-	    var handler = new DOMEventHandler(spec);
+	    var handler;
+	    if (!spec.el && this.el) {
+	      spec.el = this.el;
+	    }
+	    if (!spec.el) {
+	      throw new Error('DOM event must have a reference to a valid window or element.');
+	    }
+	    handler = new DOMEventHandler(spec);
 	    this.handlers.push(handler);
 	    handler.bind();
 	  },
