@@ -85,7 +85,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.$target = spec.target;
 	  this.type = spec.type;
 	  this.events = new DOMEventManager();
-	  
+
 	  this.$el.style.position = 'fixed';
 
 	  ['update', 'onMousedown', 'onMousemove', 'onMouseup'].forEach(function (fn) {
@@ -182,7 +182,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var $siblings = this.$target.parentElement.children;
 
 	    var captures = [];
-	    
+
 	    for (var i = 0; i < $siblings.length; i++) {
 	      captures.push($siblings[i].style.flexGrow);
 	      $siblings[i].style.flexGrow = 0;
@@ -192,15 +192,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    if (vec2.x) {
 	      this.$target.style.width = rect.width + vec2.x + 'px';
-	      if (this.$target.parentElement.style.flexDirection === 'row') {
-	        this.$target.style.flexBasis = rect.width + vec2.x + 'px';
-	      }
 	    }
+
 	    if (vec2.y) {
 	      this.$target.style.height = rect.height + vec2.y + 'px';
-	      if (this.$target.parentElement.style.flexDirection === 'column') {
-	        this.$target.style.flexBasis = rect.height + vec2.y + 'px';
-	      }
 	    }
 
 	    for (var j = 0; j < $siblings.length; j++) {
@@ -261,9 +256,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var handle = new Handle(handles[i]);
 
-	      _this.vm.$once('hook:attached', function () {
-	        (handles[i].before instanceof Function ? handles[i].before : before)(handle);
-	        handle.appendTo(_this.el);
+	      (handles[i].before instanceof Function ? handles[i].before : before)(handle);
+
+	      this.vm.constructor.nextTick(function () {
 	        handle.update();
 	      });
 
@@ -278,6 +273,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	};
+
 
 /***/ },
 /* 2 */
