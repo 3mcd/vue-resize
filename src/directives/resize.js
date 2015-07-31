@@ -186,7 +186,7 @@ module.exports = {
 
       (handles[i].before instanceof Function ? handles[i].before : before)(handle);
 
-      this.vm.constructor.nextTick(function () {
+      _this.vm.constructor.nextTick(function () {
         handle.update();
       });
 
